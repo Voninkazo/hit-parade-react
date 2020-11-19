@@ -1,11 +1,19 @@
 {
-  "name": "hit-parade-react",
-  "version": "1.0.0",
-  "description": "I will document my amaizing project here!",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+    "name": "hit-parade-react",
+    "version": "1.0.0",
+    "description": "I will document my amaizing project here!",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "react-router-dom": "^5.2.0"
+    },
+    "browserslist": [
+        "last 1 chrome version"
+    ]
 }
