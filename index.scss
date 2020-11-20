@@ -62,12 +62,6 @@ h1 {
     }
 }
 
-.title {
-    font-size: 36px;
-    line-height: 44px;
-    color: #FFFFFE;
-}
-
 .artist {
     font-size: 18px;
     line-height: 22px;
@@ -107,6 +101,26 @@ img {
     cursor: pointer;
 }
 
+.song-detail {
+    background: #272343;
+    border-radius: 5px;
+    padding-left: 70px;
+    padding-right: 78px;
+    padding-bottom: 85px;
+    padding-top: 56px;
+    p {
+        font-size: 18px;
+        line-height: 22px;
+        color: #FFFFFF;
+    }
+}
+
+.title {
+    font-size: 36px;
+    line-height: 44px;
+    color: #FFFFFE;
+}
+
 .list-items-container {
     display: flex;
     flex-direction: row;
@@ -125,6 +139,21 @@ img {
 .container {
     display: flex;
     flex-direction: column;
+}
+
+h3 {
+    font-size: 64px;
+    line-height: 78px;
+    /* identical to box height */
+    color: #000000;
+    font-weight: 400;
+}
+
+h4 {
+    font-size: 36px;
+    line-height: 44px;
+    color: #FFFFFE;
+    font-weight: 400;
 }
 
 @media (min-width:1114px) {

@@ -9,9 +9,12 @@ import addCartIcon from '../icons/add-cart.svg';
 // import cartIcon from '../icons/shopping-cart-fill.svg';
 
 import {Context} from '../Context';
+import { Link } from 'react-router-dom';
 
 function PopularSongs() {
     const {allSongs,addToCart} = useContext(Context);
+    const {showSongDetail} = useContext(Context);
+    console.log(showSongDetail);
     const theSongs =
         allSongs.map(song => {
          return(
@@ -31,7 +34,11 @@ function PopularSongs() {
                         <img src={arrowDown} className="icon-dislike" />
                     </li>
                     <li><img src={addCartIcon} className="icon-add-cart" onClick={() => addToCart(song)} /></li>
-                    <li><img src={more} className="icon-more" /></li>
+                    <li>
+                        <Link to={`/songs/lyrics`}>
+                            <img onClick={() => showSongDetail(song)} src={more} className="icon-more" />
+                        </Link>
+                    </li>
                 </ul>
             </div>
          )
