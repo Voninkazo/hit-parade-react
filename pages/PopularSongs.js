@@ -1,17 +1,17 @@
-import React,{useEffect,useState} from 'react';
+import React, { useContext } from 'react';
+
 import favoriteBorder from '../icons/favorite.svg';
 import  favorite from '../icons/favorite-fill.svg';
 import arrowUp from '../icons/arrow-up.svg';
 import arrowDown from '../icons/arrow-down.svg';
 import more from '../icons/more.svg';
 import addCartIcon from '../icons/add-cart.svg';
-import cartIcon from '../icons/shopping-cart-fill.svg';
-import songs from '../songs';
+// import cartIcon from '../icons/shopping-cart-fill.svg';
 
+import {Context} from '../Context';
 
 function PopularSongs() {
-    const [allSongs,setAllSongs] = useState([]);
-
+    const {allSongs,addToCart} = useContext(Context);
     const theSongs =
         allSongs.map(song => {
          return(
@@ -30,17 +30,12 @@ function PopularSongs() {
                         <span>{song.dislikes}</span>
                         <img src={arrowDown} className="icon-dislike" />
                     </li>
-                    <li><img src={addCartIcon} className="icon-add-cart" /></li>
+                    <li><img src={addCartIcon} className="icon-add-cart" onClick={() => addToCart(song)} /></li>
                     <li><img src={more} className="icon-more" /></li>
                 </ul>
             </div>
          )
        })
-
-    useEffect(() => {
-      setAllSongs(songs);
-      console.log(allSongs);
-    })
   
         return(
            <div>{theSongs}</div>

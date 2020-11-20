@@ -73,6 +73,35 @@ h1 {
   color: #FFFFFE;
 }
 
+.price {
+  font-size: 36px;
+  line-height: 44px;
+  color: #FFD803;
+}
+
+.buying-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 101px;
+}
+.buying-container .amount {
+  font-size: 32px;
+  line-height: 48px;
+  color: #BAE8E8;
+}
+.buying-container .btn-to-buy {
+  font-size: 32px;
+  line-height: 38px;
+  color: #000000;
+  background-color: #FFD803;
+  border: none;
+  padding: 20px 50px;
+}
+.buying-container b {
+  color: #000000;
+}
+
 img {
   cursor: pointer;
 }
