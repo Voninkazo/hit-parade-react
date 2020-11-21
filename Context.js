@@ -26,12 +26,28 @@ console.log(songs)
         setCartSongs(filteredSongs);
     }
 
+    function toggleFavorite(id) {
+    console.log(id)
+    const newSongArray = allSongs.map(song => {
+    if(song.id === id) {
+        // update this element
+        console.log(!song.isFavorite);
+        return{
+            ...song,
+            isFavorite: !song.isFavorite,
+        }
+    };
+    return {...song};
+    })
+    setAllSongs(newSongArray);
+}
+
     useEffect(() => {
         setAllSongs(songs);
       },[])
   
  
-  return     <Context.Provider value={{allSongs,cartSongs,addToCart,removeSongs,showSongDetail,songWithDetail,showDetail}}>
+  return     <Context.Provider value={{allSongs,cartSongs,addToCart,removeSongs,showSongDetail,songWithDetail,showDetail,toggleFavorite}}>
         {props.children}
     </Context.Provider>
   

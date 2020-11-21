@@ -34399,6 +34399,24 @@ function ContextProvider(props) {
     setCartSongs(filteredSongs);
   }
 
+  function toggleFavorite(id) {
+    console.log(id);
+    const newSongArray = allSongs.map(song => {
+      if (song.id === id) {
+        // update this element
+        console.log(!song.isFavorite);
+        return { ...song,
+          isFavorite: !song.isFavorite
+        };
+      }
+
+      ;
+      return { ...song
+      };
+    });
+    setAllSongs(newSongArray);
+  }
+
   (0, _react.useEffect)(() => {
     setAllSongs(_songs.default);
   }, []);
@@ -34410,7 +34428,8 @@ function ContextProvider(props) {
       removeSongs,
       showSongDetail,
       songWithDetail,
-      showDetail
+      showDetail,
+      toggleFavorite
     }
   }, props.children);
 }
@@ -34493,7 +34512,8 @@ function PopularSongs() {
   const {
     allSongs,
     addToCart,
-    showSongDetail
+    showSongDetail,
+    toggleFavorite
   } = (0, _react.useContext)(_Context.Context);
   const theSongs = allSongs.map(song => {
     return /*#__PURE__*/_react.default.createElement("div", {
@@ -34501,6 +34521,7 @@ function PopularSongs() {
       className: "song-container"
     }, /*#__PURE__*/_react.default.createElement("ul", null, /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement("img", {
       src: song.isFavorite ? _favoriteFill.default : _favorite.default,
+      onClick: () => toggleFavorite(song.id),
       className: "favorite-line"
     })), /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement("p", {
       className: "title"

@@ -12,14 +12,14 @@ import {Context} from '../Context';
 import { Link } from 'react-router-dom';
 
 function PopularSongs() {
-    const {allSongs,addToCart, showSongDetail} = useContext(Context);
+    const {allSongs,addToCart, showSongDetail,toggleFavorite} = useContext(Context);
    
     const theSongs =
         allSongs.map(song => {
          return(
             <div key={song.id} className="song-container">
                 <ul>
-                    <li><img src={song.isFavorite ? favorite : favoriteBorder} className="favorite-line" /></li>
+                    <li><img src={song.isFavorite ? favorite : favoriteBorder} onClick={() => toggleFavorite(song.id)} className="favorite-line" /></li>
                     <li>
                         <p className="title">{song.title}</p>
                         <span className="artist">{song.artist}</span>
