@@ -6,6 +6,7 @@ import PopularSongs from './pages/PopularSongs';
 import Cart from './pages/Cart';
 import Styles from './pages/Styles';
 import SongDetail from './Components/SongDetail';
+import SpecificSongs from './Components/SpecificSongs';
 
 function App() {
   return (
@@ -15,8 +16,11 @@ function App() {
           <Route exact path="/">
               <PopularSongs />
           </Route>
-          <Route path="/styles">
+          <Route exact path="/styles">
               <Styles />
+          </Route>
+          <Route path="/styles/:style">
+              <SpecificSongs />
           </Route>
           <Route path="/add"></Route>
           <Route path="/cart">

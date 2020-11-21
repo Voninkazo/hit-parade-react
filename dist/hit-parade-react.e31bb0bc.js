@@ -34634,6 +34634,8 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _reactRouterDom = require("react-router-dom");
+
 var _Context = require("../Context");
 
 var _headphone = _interopRequireDefault(require("../images/headphone.png"));
@@ -34648,24 +34650,36 @@ function Styles() {
   const {
     allSongs
   } = (0, _react.useContext)(_Context.Context);
-  const songsStyles = allSongs.map(song => song.style);
+  const songsStyles = allSongs.filter(song => song.style);
   const allStyles = [...new Set(songsStyles)];
   const styles = allStyles.map(song => /*#__PURE__*/_react.default.createElement("li", {
-    key: song
+    key: song.id
+  }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: `/styles/${song.style}`
   }, /*#__PURE__*/_react.default.createElement("img", {
+    className: "img",
     src: _headphone.default,
     alt: _headphone.default
   }), /*#__PURE__*/_react.default.createElement("button", {
-    value: song
-  }, song)));
+    className: "style",
+    value: song.style
+  }, song.style))));
   return /*#__PURE__*/_react.default.createElement("ul", {
     className: "style-container"
   }, styles);
-}
+} // Styles.propTypes ={
+//   songsStyles: PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//       title: PropTypes.string.isRequired,
+//       artist: PropTypes.string,
+//       lyric: PropTypes.string
+//   })
+// }
+
 
 var _default = Styles;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../Context":"Context.js","../images/headphone.png":"images/headphone.png"}],"Components/SongDetail.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../Context":"Context.js","../images/headphone.png":"images/headphone.png"}],"Components/SongDetail.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34698,7 +34712,59 @@ function SongDetail() {
 
 var _default = SongDetail;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../Context":"Context.js"}],"App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../Context":"Context.js"}],"Components/SpecificSongs.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _Context = require("../Context");
+
+var _headphone = _interopRequireDefault(require("../images/headphone.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function SpecificSongs() {
+  const {
+    style
+  } = (0, _reactRouterDom.useParams)();
+  const {
+    allSongs
+  } = (0, _react.useContext)(_Context.Context);
+  console.log(style);
+  const newSong = allSongs.filter(song => song.style === style);
+  console.log(newSong);
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+    className: "style--name"
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    className: "img",
+    src: _headphone.default,
+    alt: _headphone.default
+  }), /*#__PURE__*/_react.default.createElement("p", {
+    className: "style"
+  }, style)), newSong.map(song => /*#__PURE__*/_react.default.createElement("div", {
+    key: song.id,
+    className: "card--style"
+  }, /*#__PURE__*/_react.default.createElement("p", {
+    className: "title"
+  }, song.title), /*#__PURE__*/_react.default.createElement("p", {
+    className: "artist"
+  }, song.artist))));
+}
+
+var _default = SpecificSongs;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../Context":"Context.js","../images/headphone.png":"images/headphone.png"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34720,6 +34786,8 @@ var _Styles = _interopRequireDefault(require("./pages/Styles"));
 
 var _SongDetail = _interopRequireDefault(require("./Components/SongDetail"));
 
+var _SpecificSongs = _interopRequireDefault(require("./Components/SpecificSongs"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function App() {
@@ -34727,8 +34795,11 @@ function App() {
     exact: true,
     path: "/"
   }, /*#__PURE__*/_react.default.createElement(_PopularSongs.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    exact: true,
     path: "/styles"
   }, /*#__PURE__*/_react.default.createElement(_Styles.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: "/styles/:style"
+  }, /*#__PURE__*/_react.default.createElement(_SpecificSongs.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/add"
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/cart"
@@ -34739,7 +34810,7 @@ function App() {
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Components/Header":"Components/Header.js","./pages/PopularSongs":"pages/PopularSongs.js","./pages/Cart":"pages/Cart.js","./pages/Styles":"pages/Styles.js","./Components/SongDetail":"Components/SongDetail.js"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Components/Header":"Components/Header.js","./pages/PopularSongs":"pages/PopularSongs.js","./pages/Cart":"pages/Cart.js","./pages/Styles":"pages/Styles.js","./Components/SongDetail":"Components/SongDetail.js","./Components/SpecificSongs":"Components/SpecificSongs.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
