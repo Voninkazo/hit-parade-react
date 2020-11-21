@@ -6,36 +6,61 @@ import arrowUp from '../icons/arrow-up.svg';
 import arrowDown from '../icons/arrow-down.svg';
 import more from '../icons/more.svg';
 import addCartIcon from '../icons/add-cart.svg';
-// import cartIcon from '../icons/shopping-cart-fill.svg';
+import cartIcon from '../icons/shopping-cart-fill.svg';
 
 import {Context} from '../Context';
 import { Link } from 'react-router-dom';
 
 function PopularSongs() {
-    const {allSongs,addToCart, showSongDetail,toggleFavorite} = useContext(Context);
-   
+    const {allSongs,
+        addToCart, 
+        showSongDetail,
+        toggleFavorite,
+        toggleAddToCart,
+        increaseDislikes,
+        increaseLikes
+    } = useContext(Context);
+
+function functionCart(v, i) {
+    addToCart(v);
+    toggleAddToCart(i)
+}
+
     const theSongs =
         allSongs.map(song => {
          return(
             <div key={song.id} className="song-container">
                 <ul>
-                    <li><img src={song.isFavorite ? favorite : favoriteBorder} onClick={() => toggleFavorite(song.id)} className="favorite-line" /></li>
+                    <li>
+                        <img 
+                        src={song.isFavorite ? favorite : favoriteBorder} 
+                        onClick={() => toggleFavorite(song.id)} 
+                        className="favorite-line" />
+                    </li>
                     <li>
                         <p className="title">{song.title}</p>
                         <span className="artist">{song.artist}</span>
                     </li>
                     <li className="list-items-container">
                         <span>{song.likes}</span>
-                        <img src={arrowUp} className="icon-like" />
+                        <img src={arrowUp} onClick={() => increaseLikes(song.id)} className="icon-like" />
                     </li>
                     <li className="list-items-container">
                         <span>{song.dislikes}</span>
-                        <img src={arrowDown} className="icon-dislike" />
+                        <img src={arrowDown} onClick={() => increaseDislikes(song.id)} className="icon-dislike" />
                     </li>
-                    <li><img src={addCartIcon} className="icon-add-cart" onClick={() => addToCart(song)} /></li>
+                    <li>
+                        <img 
+                        src={song.isAdded ? cartIcon : addCartIcon} 
+                        className="icon-add-cart" 
+                        onClick={() => functionCart(song,song.id)} />
+                    </li>
                     <li>
                         <Link to={`/songs/lyrics`}>
-                            <img onClick={() => showSongDetail(song)} src={more} className="icon-more" />
+                            <img 
+                            onClick={() => showSongDetail(song)} 
+                            src={more} 
+                            className="icon-more" />
                         </Link>
                     </li>
                 </ul>

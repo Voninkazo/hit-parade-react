@@ -33862,6 +33862,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 const songs = [{
   id: 1605846877288,
+  isAdded: false,
   artist: "Mr Sayda",
   title: "Tsy Hanampetra",
   isFavorite: true,
@@ -33925,6 +33926,7 @@ const songs = [{
 `
 }, {
   id: 1605846901797,
+  isAdded: true,
   artist: "Adelele",
   title: "Don't you remember",
   isFavorite: true,
@@ -33955,6 +33957,7 @@ const songs = [{
         `
 }, {
   id: 1605846939038,
+  isAdded: false,
   artist: "Celine Dion",
   title: "Uptempo",
   isFavorite: false,
@@ -34001,6 +34004,7 @@ const songs = [{
         `
 }, {
   id: 605846956811,
+  isAdded: false,
   artist: "Lucky Dube",
   title: "War and Crime",
   isFavorite: false,
@@ -34033,6 +34037,7 @@ const songs = [{
         `
 }, {
   id: 1605847004104,
+  isAdded: false,
   artist: "Celine Dion",
   title: "Tell me ",
   isFavorite: false,
@@ -34119,6 +34124,7 @@ const songs = [{
         `
 }, {
   id: 1605847018320,
+  isAdded: false,
   artist: "Maitre Gims",
   title: "Everything is going well so far",
   isFavorite: false,
@@ -34145,6 +34151,7 @@ const songs = [{
         `
 }, {
   id: 1605847034323,
+  isAdded: false,
   artist: "Lion Hill",
   title: "Tia vola",
   isFavorite: false,
@@ -34174,6 +34181,7 @@ const songs = [{
         `
 }, {
   id: 1605847052700,
+  isAdded: false,
   artist: "Shania Twain",
   title: "What Made You Say That?",
   isFavorite: true,
@@ -34228,6 +34236,7 @@ const songs = [{
         `
 }, {
   id: 1605847074129,
+  isAdded: false,
   artist: "Shania Twain",
   title: "Forget me",
   isFavorite: false,
@@ -34277,6 +34286,7 @@ const songs = [{
         `
 }, {
   id: 1605847094610,
+  isAdded: false,
   artist: "Justin Bieber",
   title: "Mistletoe",
   isFavorite: false,
@@ -34383,6 +34393,32 @@ function ContextProvider(props) {
   const [songWithDetail, setSongWithDetail] = (0, _react.useState)({});
   const [showDetail, setShowDetail] = (0, _react.useState)(false);
 
+  function increaseLikes(id) {
+    const increasedVotes = allSongs.map(item => {
+      if (item.id === id) {
+        return { ...item,
+          likes: item.likes + 1
+        };
+      }
+
+      return item;
+    });
+    setAllSongs(increasedVotes);
+  }
+
+  function increaseDislikes(id) {
+    const increasedVotes = allSongs.map(item => {
+      if (item.id === id) {
+        return { ...item,
+          dislikes: item.dislikes + 1
+        };
+      }
+
+      return item;
+    });
+    setAllSongs(increasedVotes);
+  }
+
   function addToCart(song) {
     const newCartSongs = [...cartSongs, song];
     setCartSongs(newCartSongs);
@@ -34417,6 +34453,24 @@ function ContextProvider(props) {
     setAllSongs(newSongArray);
   }
 
+  function toggleAddToCart(id) {
+    console.log(id);
+    const newSongArray = allSongs.map(song => {
+      if (song.id === id) {
+        // update this element
+        console.log(!song.isAdded);
+        return { ...song,
+          isAdded: !song.isAdded
+        };
+      }
+
+      ;
+      return { ...song
+      };
+    });
+    setAllSongs(newSongArray);
+  }
+
   (0, _react.useEffect)(() => {
     setAllSongs(_songs.default);
   }, []);
@@ -34429,7 +34483,10 @@ function ContextProvider(props) {
       showSongDetail,
       songWithDetail,
       showDetail,
-      toggleFavorite
+      toggleFavorite,
+      toggleAddToCart,
+      increaseDislikes,
+      increaseLikes
     }
   }, props.children);
 }
@@ -34475,6 +34532,8 @@ module.exports = "/arrow-down.8b5c0470.svg";
 module.exports = "/more.7876cacc.svg";
 },{}],"icons/add-cart.svg":[function(require,module,exports) {
 module.exports = "/add-cart.2660e35b.svg";
+},{}],"icons/shopping-cart-fill.svg":[function(require,module,exports) {
+module.exports = "/shopping-cart-fill.fa00e9f3.svg";
 },{}],"pages/PopularSongs.js":[function(require,module,exports) {
 "use strict";
 
@@ -34497,6 +34556,8 @@ var _more = _interopRequireDefault(require("../icons/more.svg"));
 
 var _addCart = _interopRequireDefault(require("../icons/add-cart.svg"));
 
+var _shoppingCartFill = _interopRequireDefault(require("../icons/shopping-cart-fill.svg"));
+
 var _Context = require("../Context");
 
 var _reactRouterDom = require("react-router-dom");
@@ -34507,14 +34568,22 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-// import cartIcon from '../icons/shopping-cart-fill.svg';
 function PopularSongs() {
   const {
     allSongs,
     addToCart,
     showSongDetail,
-    toggleFavorite
+    toggleFavorite,
+    toggleAddToCart,
+    increaseDislikes,
+    increaseLikes
   } = (0, _react.useContext)(_Context.Context);
+
+  function functionCart(v, i) {
+    addToCart(v);
+    toggleAddToCart(i);
+  }
+
   const theSongs = allSongs.map(song => {
     return /*#__PURE__*/_react.default.createElement("div", {
       key: song.id,
@@ -34531,16 +34600,18 @@ function PopularSongs() {
       className: "list-items-container"
     }, /*#__PURE__*/_react.default.createElement("span", null, song.likes), /*#__PURE__*/_react.default.createElement("img", {
       src: _arrowUp.default,
+      onClick: () => increaseLikes(song.id),
       className: "icon-like"
     })), /*#__PURE__*/_react.default.createElement("li", {
       className: "list-items-container"
     }, /*#__PURE__*/_react.default.createElement("span", null, song.dislikes), /*#__PURE__*/_react.default.createElement("img", {
       src: _arrowDown.default,
+      onClick: () => increaseDislikes(song.id),
       className: "icon-dislike"
     })), /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement("img", {
-      src: _addCart.default,
+      src: song.isAdded ? _shoppingCartFill.default : _addCart.default,
       className: "icon-add-cart",
-      onClick: () => addToCart(song)
+      onClick: () => functionCart(song, song.id)
     })), /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
       to: `/songs/lyrics`
     }, /*#__PURE__*/_react.default.createElement("img", {
@@ -34554,7 +34625,7 @@ function PopularSongs() {
 
 var _default = PopularSongs;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../icons/favorite.svg":"icons/favorite.svg","../icons/favorite-fill.svg":"icons/favorite-fill.svg","../icons/arrow-up.svg":"icons/arrow-up.svg","../icons/arrow-down.svg":"icons/arrow-down.svg","../icons/more.svg":"icons/more.svg","../icons/add-cart.svg":"icons/add-cart.svg","../Context":"Context.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js"}],"icons/delete.svg":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../icons/favorite.svg":"icons/favorite.svg","../icons/favorite-fill.svg":"icons/favorite-fill.svg","../icons/arrow-up.svg":"icons/arrow-up.svg","../icons/arrow-down.svg":"icons/arrow-down.svg","../icons/more.svg":"icons/more.svg","../icons/add-cart.svg":"icons/add-cart.svg","../icons/shopping-cart-fill.svg":"icons/shopping-cart-fill.svg","../Context":"Context.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js"}],"icons/delete.svg":[function(require,module,exports) {
 module.exports = "/delete.491a0fad.svg";
 },{}],"Components/CartItem.js":[function(require,module,exports) {
 "use strict";
