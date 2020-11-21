@@ -34150,7 +34150,7 @@ const songs = [{
   isFavorite: false,
   likes: 30,
   dislikes: 4,
-  style: "",
+  style: "RNB",
   price: 200,
   lyrics: `Tia Anao ,Tiako anao tsaiky 
         Tiako anao tiako anao tiako anao tsaiky.
@@ -34377,6 +34377,7 @@ const Context = _react.default.createContext();
 exports.Context = Context;
 
 function ContextProvider(props) {
+  console.log(_songs.default);
   const [allSongs, setAllSongs] = (0, _react.useState)([]);
   const [cartSongs, setCartSongs] = (0, _react.useState)([]);
   const [songWithDetail, setSongWithDetail] = (0, _react.useState)({});
@@ -34400,8 +34401,7 @@ function ContextProvider(props) {
 
   (0, _react.useEffect)(() => {
     setAllSongs(_songs.default);
-    console.log(allSongs);
-  });
+  }, []);
   return /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
       allSongs,
@@ -34492,12 +34492,9 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function PopularSongs() {
   const {
     allSongs,
-    addToCart
-  } = (0, _react.useContext)(_Context.Context);
-  const {
+    addToCart,
     showSongDetail
   } = (0, _react.useContext)(_Context.Context);
-  console.log(showSongDetail);
   const theSongs = allSongs.map(song => {
     return /*#__PURE__*/_react.default.createElement("div", {
       key: song.id,
@@ -34625,7 +34622,50 @@ function Cart() {
 
 var _default = Cart;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../Context":"Context.js","../Components/CartItem":"Components/CartItem.js"}],"Components/SongDetail.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../Context":"Context.js","../Components/CartItem":"Components/CartItem.js"}],"images/headphone.png":[function(require,module,exports) {
+module.exports = "/headphone.9051bef0.png";
+},{}],"pages/Styles.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _Context = require("../Context");
+
+var _headphone = _interopRequireDefault(require("../images/headphone.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function Styles() {
+  const {
+    allSongs
+  } = (0, _react.useContext)(_Context.Context);
+  const songsStyles = allSongs.map(song => song.style);
+  const allStyles = [...new Set(songsStyles)];
+  const styles = allStyles.map(song => /*#__PURE__*/_react.default.createElement("li", {
+    key: song
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: _headphone.default,
+    alt: _headphone.default
+  }), /*#__PURE__*/_react.default.createElement("button", {
+    value: song
+  }, song)));
+  return /*#__PURE__*/_react.default.createElement("ul", {
+    className: "style-container"
+  }, styles);
+}
+
+var _default = Styles;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../Context":"Context.js","../images/headphone.png":"images/headphone.png"}],"Components/SongDetail.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34676,6 +34716,8 @@ var _PopularSongs = _interopRequireDefault(require("./pages/PopularSongs"));
 
 var _Cart = _interopRequireDefault(require("./pages/Cart"));
 
+var _Styles = _interopRequireDefault(require("./pages/Styles"));
+
 var _SongDetail = _interopRequireDefault(require("./Components/SongDetail"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -34686,7 +34728,7 @@ function App() {
     path: "/"
   }, /*#__PURE__*/_react.default.createElement(_PopularSongs.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/styles"
-  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }, /*#__PURE__*/_react.default.createElement(_Styles.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/add"
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/cart"
@@ -34697,7 +34739,7 @@ function App() {
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Components/Header":"Components/Header.js","./pages/PopularSongs":"pages/PopularSongs.js","./pages/Cart":"pages/Cart.js","./Components/SongDetail":"Components/SongDetail.js"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Components/Header":"Components/Header.js","./pages/PopularSongs":"pages/PopularSongs.js","./pages/Cart":"pages/Cart.js","./pages/Styles":"pages/Styles.js","./Components/SongDetail":"Components/SongDetail.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -34711,6 +34753,8 @@ var _Context = require("./Context");
 var _App = _interopRequireDefault(require("./App"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+console.log();
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(_Context.ContextProvider, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_App.default, null))), document.getElementById('root'));
 },{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./Context":"Context.js","./App":"App.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -34741,7 +34785,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59731" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57994" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

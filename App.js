@@ -4,6 +4,7 @@ import {Route, Switch } from 'react-router-dom';
 import Header from './Components/Header';
 import PopularSongs from './pages/PopularSongs';
 import Cart from './pages/Cart';
+import Styles from './pages/Styles';
 import SongDetail from './Components/SongDetail';
 
 function App() {
@@ -14,7 +15,9 @@ function App() {
           <Route exact path="/">
               <PopularSongs />
           </Route>
-          <Route path="/styles"></Route>
+          <Route path="/styles">
+              <Styles />
+          </Route>
           <Route path="/add"></Route>
           <Route path="/cart">
               <Cart />

@@ -12,9 +12,8 @@ import {Context} from '../Context';
 import { Link } from 'react-router-dom';
 
 function PopularSongs() {
-    const {allSongs,addToCart} = useContext(Context);
-    const {showSongDetail} = useContext(Context);
-    console.log(showSongDetail);
+    const {allSongs,addToCart, showSongDetail} = useContext(Context);
+   
     const theSongs =
         allSongs.map(song => {
          return(

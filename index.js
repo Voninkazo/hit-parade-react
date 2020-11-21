@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import {ContextProvider} from './Context';
+console.log();
 
 import App from './App';
 

@@ -294,7 +294,7 @@ const songs = [{
         isFavorite: false,
         likes: 30,
         dislikes: 4,
-        style: "",
+        style: "RNB",
         price: 200,
         lyrics: `Tia Anao ,Tiako anao tsaiky 
         Tiako anao tiako anao tiako anao tsaiky.

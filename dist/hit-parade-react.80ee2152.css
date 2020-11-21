@@ -155,6 +155,39 @@ h4 {
   font-weight: 400;
 }
 
+.style-container {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  list-style: none;
+  padding: 0;
+  margin-top: 42px;
+}
+.style-container li {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+.style-container img {
+  width: 50px;
+  height: 50px;
+}
+.style-container button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: normal;
+  font-size: 64px;
+  line-height: 78px;
+  color: #000000;
+  padding: 10px 20px;
+  outline: none;
+}
+.style-container button:hover {
+  color: #FFD803;
+  transition: 0.3s;
+}
+
 @media (min-width: 1114px) {
   #root {
     max-width: 1114px;
