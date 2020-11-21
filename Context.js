@@ -91,6 +91,7 @@ function toggleAddToCart(id) {
 
   return <Context.Provider value={
       {allSongs,
+      setAllSongs,
       cartSongs,
       addToCart,
       removeSongs,
