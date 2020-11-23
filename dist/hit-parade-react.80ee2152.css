@@ -32,10 +32,7 @@ a {
 .song-container {
   background: #272343;
   border-radius: 5px;
-  padding-left: 67px;
-  padding-top: 56px;
-  padding-bottom: 30px;
-  padding-right: 40px;
+  padding: 10px 20px;
   margin-top: 42px;
 }
 .song-container ul {

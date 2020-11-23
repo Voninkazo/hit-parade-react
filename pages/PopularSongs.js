@@ -22,8 +22,14 @@ function PopularSongs() {
         increaseLikes
     } = useContext(Context);
 
+    const sortedSongs =  
+        allSongs.sort((a,b) =>{ const ratio1 = a.likes - a.dislikes;
+        const ratio2 = b.likes - b.dislikes;
+        return ratio2 - ratio1;
+        })
+
     const theSongs =
-        allSongs.map(song => {
+        sortedSongs.map(song => {
             function cartFunction() {
                 if(cartSongs.some((cartItem => cartItem.id === song.id))) {
                     return <img 

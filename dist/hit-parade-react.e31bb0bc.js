@@ -34382,11 +34382,6 @@ function ContextProvider(props) {
   const [cartSongs, setCartSongs] = (0, _react.useState)([]);
   const [songWithDetail, setSongWithDetail] = (0, _react.useState)({});
   const [showDetail, setShowDetail] = (0, _react.useState)(false);
-  allSongs.sort((a, b) => {
-    const ratio1 = a.likes - a.dislikes;
-    const ratio2 = b.likes - b.dislikes;
-    return ratio2 - ratio1;
-  });
 
   function increaseLikes(id) {
     const increasedVotes = allSongs.map(item => {
@@ -34447,35 +34442,17 @@ function ContextProvider(props) {
     setAllSongs(newSongArray);
   }
 
-  function initCartSongs() {
-    const lsCarSongs = JSON.parse(localStorage.getItem('cartItems'));
-
-    if (lsCarSongs) {
-      setCartSongs(lsCarSongs);
-    }
-  }
-
   (0, _react.useEffect)(() => {
-    const lsAllSongs = JSON.parse(localStorage.getItem('allPhotos'));
-
-    if (lsAllSongs) {
-      // set the local storage value to state
-      setAllSongs(lsAllSongs);
-    } else {
-      setAllSongs(_songs.default);
-    }
-
-    initCartSongs();
+    const lsSongs = JSON.parse(localStorage.getItem('allSongs'));
+    lsSongs ? setAllSongs(lsSongs) : setAllSongs(_songs.default);
+    const lsCartSongs = JSON.parse(localStorage.getItem('cartSongs'));
+    lsCartSongs && setCartSongs(lsCartSongs);
   }, []);
   (0, _react.useEffect)(() => {
-    if (allSongs.length > 0) {
-      localStorage.setItem('allSongs', JSON.stringify(allSongs));
-    }
+    localStorage.setItem('allSongs', JSON.stringify(allSongs));
   }, [allSongs]);
   (0, _react.useEffect)(() => {
-    if (cartSongs.length > 0) {
-      localStorage.setItem('cartSongs', JSON.stringify(cartSongs));
-    }
+    localStorage.setItem('cartSongs', JSON.stringify(cartSongs));
   }, [cartSongs]);
   return /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
@@ -34582,7 +34559,12 @@ function PopularSongs() {
     increaseDislikes,
     increaseLikes
   } = (0, _react.useContext)(_Context.Context);
-  const theSongs = allSongs.map(song => {
+  const sortedSongs = allSongs.sort((a, b) => {
+    const ratio1 = a.likes - a.dislikes;
+    const ratio2 = b.likes - b.dislikes;
+    return ratio2 - ratio1;
+  });
+  const theSongs = sortedSongs.map(song => {
     function cartFunction() {
       if (cartSongs.some(cartItem => cartItem.id === song.id)) {
         return /*#__PURE__*/_react.default.createElement("img", {

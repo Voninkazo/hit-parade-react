@@ -9,12 +9,7 @@ console.log(songs)
     const [allSongs,setAllSongs] = useState([]);
     const [cartSongs,setCartSongs] = useState([]);
     const [songWithDetail,setSongWithDetail] = useState({});
-    const [showDetail,setShowDetail] = useState(false);
-
-    allSongs.sort((a,b) =>{ const ratio1 = a.likes - a.dislikes;
-    const ratio2 = b.likes - b.dislikes;
-    return ratio2 - ratio1;
-    })
+    const [showDetail,setShowDetail] = useState(false); 
     
     function increaseLikes(id) {
         const increasedVotes = allSongs.map(item => {
@@ -73,34 +68,22 @@ console.log(songs)
     setAllSongs(newSongArray);
 }
 
-function initCartSongs() {
-    const lsCarSongs = JSON.parse(localStorage.getItem('cartItems'));
-    if (lsCarSongs) {
-        setCartSongs(lsCarSongs);
-    }
-}
+useEffect(() => {
+    const lsSongs = JSON.parse(localStorage.getItem('allSongs'));
+    lsSongs ? setAllSongs(lsSongs) : setAllSongs(songs);
 
-    useEffect(() => {
-        const lsAllSongs = JSON.parse(localStorage.getItem('allPhotos'));
-		if (lsAllSongs) {
-			// set the local storage value to state
-			setAllSongs(lsAllSongs);
-		} else{
-            setAllSongs(songs);
-        }
-        initCartSongs();
-      },[])
+    const lsCartSongs =JSON.parse(localStorage.getItem('cartSongs'));
+    lsCartSongs && setCartSongs(lsCartSongs);
 
-      useEffect(() => {
-		if (allSongs.length > 0) {
-			localStorage.setItem('allSongs', JSON.stringify(allSongs));
-		}
-	}, [allSongs]);
-	useEffect(() => {
-		if (cartSongs.length > 0) {
-			localStorage.setItem('cartSongs', JSON.stringify(cartSongs));
-		}
-    }, [cartSongs]);
+},[])
+
+useEffect(() => {
+    localStorage.setItem('allSongs', JSON.stringify(allSongs));
+}, [allSongs]);
+
+useEffect(() => {
+    localStorage.setItem('cartSongs', JSON.stringify(cartSongs));
+}, [cartSongs]);
 
   return <Context.Provider value={
       {allSongs,
