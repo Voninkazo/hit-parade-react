@@ -34382,6 +34382,11 @@ function ContextProvider(props) {
   const [cartSongs, setCartSongs] = (0, _react.useState)([]);
   const [songWithDetail, setSongWithDetail] = (0, _react.useState)({});
   const [showDetail, setShowDetail] = (0, _react.useState)(false);
+  allSongs.sort((a, b) => {
+    const ratio1 = a.likes - a.dislikes;
+    const ratio2 = b.likes - b.dislikes;
+    return ratio2 - ratio1;
+  });
 
   function increaseLikes(id) {
     const increasedVotes = allSongs.map(item => {
@@ -34542,6 +34547,8 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _reactRouterDom = require("react-router-dom");
+
 var _favorite = _interopRequireDefault(require("../icons/favorite.svg"));
 
 var _favoriteFill = _interopRequireDefault(require("../icons/favorite-fill.svg"));
@@ -34557,8 +34564,6 @@ var _addCart = _interopRequireDefault(require("../icons/add-cart.svg"));
 var _shoppingCartFill = _interopRequireDefault(require("../icons/shopping-cart-fill.svg"));
 
 var _Context = require("../Context");
-
-var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34630,7 +34635,7 @@ function PopularSongs() {
 
 var _default = PopularSongs;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../icons/favorite.svg":"icons/favorite.svg","../icons/favorite-fill.svg":"icons/favorite-fill.svg","../icons/arrow-up.svg":"icons/arrow-up.svg","../icons/arrow-down.svg":"icons/arrow-down.svg","../icons/more.svg":"icons/more.svg","../icons/add-cart.svg":"icons/add-cart.svg","../icons/shopping-cart-fill.svg":"icons/shopping-cart-fill.svg","../Context":"Context.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js"}],"icons/delete.svg":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../icons/favorite.svg":"icons/favorite.svg","../icons/favorite-fill.svg":"icons/favorite-fill.svg","../icons/arrow-up.svg":"icons/arrow-up.svg","../icons/arrow-down.svg":"icons/arrow-down.svg","../icons/more.svg":"icons/more.svg","../icons/add-cart.svg":"icons/add-cart.svg","../icons/shopping-cart-fill.svg":"icons/shopping-cart-fill.svg","../Context":"Context.js"}],"icons/delete.svg":[function(require,module,exports) {
 module.exports = "/delete.491a0fad.svg";
 },{}],"Components/CartItem.js":[function(require,module,exports) {
 "use strict";

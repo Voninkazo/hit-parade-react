@@ -10,6 +10,11 @@ console.log(songs)
     const [cartSongs,setCartSongs] = useState([]);
     const [songWithDetail,setSongWithDetail] = useState({});
     const [showDetail,setShowDetail] = useState(false);
+
+    allSongs.sort((a,b) =>{ const ratio1 = a.likes - a.dislikes;
+    const ratio2 = b.likes - b.dislikes;
+    return ratio2 - ratio1;
+    })
     
     function increaseLikes(id) {
         const increasedVotes = allSongs.map(item => {

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import favoriteBorder from '../icons/favorite.svg';
 import  favorite from '../icons/favorite-fill.svg';
@@ -9,7 +10,6 @@ import addCartIcon from '../icons/add-cart.svg';
 import cartIcon from '../icons/shopping-cart-fill.svg';
 
 import {Context} from '../Context';
-import { Link } from 'react-router-dom';
 
 function PopularSongs() {
     const {allSongs,
@@ -22,7 +22,6 @@ function PopularSongs() {
         increaseLikes
     } = useContext(Context);
 
-
     const theSongs =
         allSongs.map(song => {
             function cartFunction() {
@@ -30,13 +29,15 @@ function PopularSongs() {
                     return <img 
                     src={cartIcon} 
                     className="icon-add-cart" 
-                    onClick={() => removeSongs(song.id)} />
+                    onClick={() => removeSongs(song.id)}
+                     />
                 }
                 else{
                     return <img 
                     src={addCartIcon} 
                     className="icon-add-cart" 
-                    onClick={() => addToCart(song)} />
+                    onClick={() => addToCart(song)}
+                     />
                 }
             }
          return(

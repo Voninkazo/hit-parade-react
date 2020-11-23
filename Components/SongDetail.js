@@ -12,7 +12,7 @@ function SongDetail() {
         <h3>{songWithDetail.artist}: {songWithDetail.title}</h3>
         <div className="song-detail">
         <h4>Lyrics</h4>
-        <p>{songWithDetail.lyrics}</p>
+        <p>{songWithDetail.lyrics}</p>  
         </div>
         <Link to="/songs">Homepage</Link>
     </>
