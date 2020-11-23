@@ -17,8 +17,9 @@ function Cart() {
         {cartSongElements}
         {cartSongs.length > 0 && (
           <div className="buying-container">
-            <button className="btn-to-buy">Buy</button>
+             <p>You have chosen <b>{cartSongs.length}</b> songs</p>
             <p className="amount">Total: <b>{totalAmount.toLocaleString("en-Us", {style: "currency", currency: "USD"})}</b></p>
+            <button className="btn-to-buy">Buy</button>
         </div>
      )
      }

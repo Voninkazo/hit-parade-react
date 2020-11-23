@@ -1,6 +1,5 @@
 const songs = [{
         id: 1605846877288,
-        isAdded: false,
         artist: "Mr Sayda",
         title: "Tsy Hanampetra",
         isFavorite: true,
@@ -65,7 +64,6 @@ const songs = [{
     },
     {
         id: 1605846901797,
-        isAdded: true,
         artist: "Adelele",
         title: "Don't you remember",
         isFavorite: true,
@@ -97,7 +95,6 @@ const songs = [{
     },
     {
         id: 1605846939038,
-        isAdded: false,
         artist: "Celine Dion",
         title: "Uptempo",
         isFavorite: false,
@@ -146,7 +143,6 @@ const songs = [{
     {
         id: 605846956811,
 
-        isAdded: false,
         artist: "Lucky Dube",
         title: "War and Crime",
         isFavorite: false,
@@ -180,7 +176,6 @@ const songs = [{
     },
     {
         id: 1605847004104,
-        isAdded: false,
         artist: "Celine Dion",
         title: "Tell me ",
         isFavorite: false,
@@ -268,7 +263,6 @@ const songs = [{
     },
     {
         id: 1605847018320,
-        isAdded: false,
         artist: "Maitre Gims",
         title: "Everything is going well so far",
         isFavorite: false,
@@ -296,7 +290,6 @@ const songs = [{
     },
     {
         id: 1605847034323,
-        isAdded: false,
         artist: "Lion Hill",
         title: "Tia vola",
         isFavorite: false,
@@ -327,7 +320,6 @@ const songs = [{
     },
     {
         id: 1605847052700,
-        isAdded: false,
         artist: "Shania Twain",
         title: "What Made You Say That?",
         isFavorite: true,
@@ -383,7 +375,6 @@ const songs = [{
     },
     {
         id: 1605847074129,
-        isAdded: false,
         artist: "Shania Twain",
         title: "Forget me",
         isFavorite: false,
@@ -434,7 +425,6 @@ const songs = [{
     },
     {
         id: 1605847094610,
-        isAdded: false,
         artist: "Justin Bieber",
         title: "Mistletoe",
         isFavorite: false,

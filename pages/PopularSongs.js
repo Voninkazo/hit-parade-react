@@ -13,21 +13,32 @@ import { Link } from 'react-router-dom';
 
 function PopularSongs() {
     const {allSongs,
+        cartSongs,
         addToCart, 
+        removeSongs,
         showSongDetail,
         toggleFavorite,
-        toggleAddToCart,
         increaseDislikes,
         increaseLikes
     } = useContext(Context);
 
-function functionCart(v, i) {
-    addToCart(v);
-    toggleAddToCart(i)
-}
 
     const theSongs =
         allSongs.map(song => {
+            function cartFunction() {
+                if(cartSongs.some((cartItem => cartItem.id === song.id))) {
+                    return <img 
+                    src={cartIcon} 
+                    className="icon-add-cart" 
+                    onClick={() => removeSongs(song.id)} />
+                }
+                else{
+                    return <img 
+                    src={addCartIcon} 
+                    className="icon-add-cart" 
+                    onClick={() => addToCart(song)} />
+                }
+            }
          return(
             <div key={song.id} className="song-container">
                 <ul>
@@ -50,10 +61,7 @@ function functionCart(v, i) {
                         <img src={arrowDown} onClick={() => increaseDislikes(song.id)} className="icon-dislike" />
                     </li>
                     <li>
-                        <img 
-                        src={song.isAdded ? cartIcon : addCartIcon} 
-                        className="icon-add-cart" 
-                        onClick={() => functionCart(song,song.id)} />
+                        {cartFunction(song.id)}
                     </li>
                     <li>
                         <Link to={`/songs/lyrics`}>

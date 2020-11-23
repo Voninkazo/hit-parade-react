@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext} from 'react';
 import {Context} from '../Context';
 
 function AddForm() {
-    const {allSongs,setAllSongs} = useContext(Context);
-    const [newSongs,setNewSong] = useState({});
+    const {setAllSongs} = useContext(Context);
 
     function submitForm(e) {
         e.preventDefault();
@@ -20,25 +19,17 @@ function AddForm() {
             lyrics : lyrics.value,
             isAdded : false
         }
-        setNewSong(newSong)
         e.target.reset();
+        setAllSongs(prev => [...prev,newSong])
     }
-
-    useEffect(() => {
-        if(!newSongs.title) return null;
-        setAllSongs(prev => [...prev,newSongs]);
-        console.log(newSongs);
-    },[newSongs])
-
-
 
   return (
     <form onSubmit={submitForm}>
-        <input type="text" placeholder="Title" name="title"/>
-        <input type="text" placeholder="Artist" name="artist"/>
-        <input type="number" placeholder="Price" name="price"/>
-        <input type="text" placeholder="Style" name="style"/>
-        <textarea name="lyrics" placeholder="Lyrics" cols="30" rows="10"></textarea>
+        <input type="text" placeholder="Title" name="title" required/>
+        <input type="text" placeholder="Artist" name="artist" required/>
+        <input type="number" placeholder="Price" name="price" required/>
+        <input type="text" placeholder="Style" name="style" required/>
+        <textarea name="lyrics" placeholder="Lyrics" cols="30" rows="10" required></textarea>
         <button type="submit">Add</button>
     </form>
   )

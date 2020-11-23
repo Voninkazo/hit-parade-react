@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import {useParams, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {Context} from '../Context';
 
 function SongDetail() {
@@ -7,7 +7,7 @@ function SongDetail() {
     console.log(songWithDetail)
   return (
     <>
-    {showDetail && 
+    {showDetail &&
     <>
         <h3>{songWithDetail.artist}: {songWithDetail.title}</h3>
         <div className="song-detail">

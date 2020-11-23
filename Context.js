@@ -43,7 +43,6 @@ console.log(songs)
     }
 
     function showSongDetail(song) {
-        // const newCartSongs = [...cartSongs,song];
         setSongWithDetail(song);
         setShowDetail(true);
     }
@@ -69,25 +68,34 @@ console.log(songs)
     setAllSongs(newSongArray);
 }
 
-function toggleAddToCart(id) {
-    console.log(id)
-    const newSongArray = allSongs.map(song => {
-    if(song.id === id) {
-        // update this element
-        console.log(!song.isAdded);
-        return{
-            ...song,
-            isAdded: !song.isAdded,
-        }
-    };
-    return {...song};
-    })
-    setAllSongs(newSongArray);
+function initCartSongs() {
+    const lsCarSongs = JSON.parse(localStorage.getItem('cartItems'));
+    if (lsCarSongs) {
+        setCartSongs(lsCarSongs);
+    }
 }
 
     useEffect(() => {
-        setAllSongs(songs);
+        const lsAllSongs = JSON.parse(localStorage.getItem('allPhotos'));
+		if (lsAllSongs) {
+			// set the local storage value to state
+			setAllSongs(lsAllSongs);
+		} else{
+            setAllSongs(songs);
+        }
+        initCartSongs();
       },[])
+
+      useEffect(() => {
+		if (allSongs.length > 0) {
+			localStorage.setItem('allSongs', JSON.stringify(allSongs));
+		}
+	}, [allSongs]);
+	useEffect(() => {
+		if (cartSongs.length > 0) {
+			localStorage.setItem('cartSongs', JSON.stringify(cartSongs));
+		}
+    }, [cartSongs]);
 
   return <Context.Provider value={
       {allSongs,
@@ -99,7 +107,6 @@ function toggleAddToCart(id) {
       songWithDetail,
       showDetail,
       toggleFavorite,
-      toggleAddToCart,
       increaseDislikes,
       increaseLikes,
 }

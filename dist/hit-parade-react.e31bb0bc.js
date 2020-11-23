@@ -33862,7 +33862,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 const songs = [{
   id: 1605846877288,
-  isAdded: false,
   artist: "Mr Sayda",
   title: "Tsy Hanampetra",
   isFavorite: true,
@@ -33926,7 +33925,6 @@ const songs = [{
 `
 }, {
   id: 1605846901797,
-  isAdded: true,
   artist: "Adelele",
   title: "Don't you remember",
   isFavorite: true,
@@ -33957,7 +33955,6 @@ const songs = [{
         `
 }, {
   id: 1605846939038,
-  isAdded: false,
   artist: "Celine Dion",
   title: "Uptempo",
   isFavorite: false,
@@ -34004,7 +34001,6 @@ const songs = [{
         `
 }, {
   id: 605846956811,
-  isAdded: false,
   artist: "Lucky Dube",
   title: "War and Crime",
   isFavorite: false,
@@ -34037,7 +34033,6 @@ const songs = [{
         `
 }, {
   id: 1605847004104,
-  isAdded: false,
   artist: "Celine Dion",
   title: "Tell me ",
   isFavorite: false,
@@ -34124,7 +34119,6 @@ const songs = [{
         `
 }, {
   id: 1605847018320,
-  isAdded: false,
   artist: "Maitre Gims",
   title: "Everything is going well so far",
   isFavorite: false,
@@ -34151,7 +34145,6 @@ const songs = [{
         `
 }, {
   id: 1605847034323,
-  isAdded: false,
   artist: "Lion Hill",
   title: "Tia vola",
   isFavorite: false,
@@ -34181,7 +34174,6 @@ const songs = [{
         `
 }, {
   id: 1605847052700,
-  isAdded: false,
   artist: "Shania Twain",
   title: "What Made You Say That?",
   isFavorite: true,
@@ -34236,7 +34228,6 @@ const songs = [{
         `
 }, {
   id: 1605847074129,
-  isAdded: false,
   artist: "Shania Twain",
   title: "Forget me",
   isFavorite: false,
@@ -34286,7 +34277,6 @@ const songs = [{
         `
 }, {
   id: 1605847094610,
-  isAdded: false,
   artist: "Justin Bieber",
   title: "Mistletoe",
   isFavorite: false,
@@ -34425,7 +34415,6 @@ function ContextProvider(props) {
   }
 
   function showSongDetail(song) {
-    // const newCartSongs = [...cartSongs,song];
     setSongWithDetail(song);
     setShowDetail(true);
   }
@@ -34453,27 +34442,36 @@ function ContextProvider(props) {
     setAllSongs(newSongArray);
   }
 
-  function toggleAddToCart(id) {
-    console.log(id);
-    const newSongArray = allSongs.map(song => {
-      if (song.id === id) {
-        // update this element
-        console.log(!song.isAdded);
-        return { ...song,
-          isAdded: !song.isAdded
-        };
-      }
+  function initCartSongs() {
+    const lsCarSongs = JSON.parse(localStorage.getItem('cartItems'));
 
-      ;
-      return { ...song
-      };
-    });
-    setAllSongs(newSongArray);
+    if (lsCarSongs) {
+      setCartSongs(lsCarSongs);
+    }
   }
 
   (0, _react.useEffect)(() => {
-    setAllSongs(_songs.default);
+    const lsAllSongs = JSON.parse(localStorage.getItem('allPhotos'));
+
+    if (lsAllSongs) {
+      // set the local storage value to state
+      setAllSongs(lsAllSongs);
+    } else {
+      setAllSongs(_songs.default);
+    }
+
+    initCartSongs();
   }, []);
+  (0, _react.useEffect)(() => {
+    if (allSongs.length > 0) {
+      localStorage.setItem('allSongs', JSON.stringify(allSongs));
+    }
+  }, [allSongs]);
+  (0, _react.useEffect)(() => {
+    if (cartSongs.length > 0) {
+      localStorage.setItem('cartSongs', JSON.stringify(cartSongs));
+    }
+  }, [cartSongs]);
   return /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
       allSongs,
@@ -34485,7 +34483,6 @@ function ContextProvider(props) {
       songWithDetail,
       showDetail,
       toggleFavorite,
-      toggleAddToCart,
       increaseDislikes,
       increaseLikes
     }
@@ -34572,20 +34569,31 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function PopularSongs() {
   const {
     allSongs,
+    cartSongs,
     addToCart,
+    removeSongs,
     showSongDetail,
     toggleFavorite,
-    toggleAddToCart,
     increaseDislikes,
     increaseLikes
   } = (0, _react.useContext)(_Context.Context);
-
-  function functionCart(v, i) {
-    addToCart(v);
-    toggleAddToCart(i);
-  }
-
   const theSongs = allSongs.map(song => {
+    function cartFunction() {
+      if (cartSongs.some(cartItem => cartItem.id === song.id)) {
+        return /*#__PURE__*/_react.default.createElement("img", {
+          src: _shoppingCartFill.default,
+          className: "icon-add-cart",
+          onClick: () => removeSongs(song.id)
+        });
+      } else {
+        return /*#__PURE__*/_react.default.createElement("img", {
+          src: _addCart.default,
+          className: "icon-add-cart",
+          onClick: () => addToCart(song)
+        });
+      }
+    }
+
     return /*#__PURE__*/_react.default.createElement("div", {
       key: song.id,
       className: "song-container"
@@ -34609,11 +34617,7 @@ function PopularSongs() {
       src: _arrowDown.default,
       onClick: () => increaseDislikes(song.id),
       className: "icon-dislike"
-    })), /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement("img", {
-      src: song.isAdded ? _shoppingCartFill.default : _addCart.default,
-      className: "icon-add-cart",
-      onClick: () => functionCart(song, song.id)
-    })), /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    })), /*#__PURE__*/_react.default.createElement("li", null, cartFunction(song.id)), /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
       to: `/songs/lyrics`
     }, /*#__PURE__*/_react.default.createElement("img", {
       onClick: () => showSongDetail(song),
@@ -34654,7 +34658,7 @@ function CartItem({
   const {
     removeSongs
   } = (0, _react.useContext)(_Context.Context);
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
     className: "song-container"
   }, /*#__PURE__*/_react.default.createElement("ul", null, /*#__PURE__*/_react.default.createElement("li", null, /*#__PURE__*/_react.default.createElement("img", {
     onClick: () => removeSongs(song.id),
@@ -34666,7 +34670,7 @@ function CartItem({
     className: "artist"
   }, song.artist)), /*#__PURE__*/_react.default.createElement("li", {
     className: "price"
-  }, song.price, "Ar")));
+  }, song.price, "Ar"))));
 }
 
 var _default = CartItem;
@@ -34703,14 +34707,14 @@ function Cart() {
   console.log(totalAmount);
   return /*#__PURE__*/_react.default.createElement("div", null, cartSongElements, cartSongs.length > 0 && /*#__PURE__*/_react.default.createElement("div", {
     className: "buying-container"
-  }, /*#__PURE__*/_react.default.createElement("button", {
-    className: "btn-to-buy"
-  }, "Buy"), /*#__PURE__*/_react.default.createElement("p", {
+  }, /*#__PURE__*/_react.default.createElement("p", null, "You have chosen ", /*#__PURE__*/_react.default.createElement("b", null, cartSongs.length), " songs"), /*#__PURE__*/_react.default.createElement("p", {
     className: "amount"
   }, "Total: ", /*#__PURE__*/_react.default.createElement("b", null, totalAmount.toLocaleString("en-Us", {
     style: "currency",
     currency: "USD"
-  })))));
+  }))), /*#__PURE__*/_react.default.createElement("button", {
+    className: "btn-to-buy"
+  }, "Buy")));
 }
 
 var _default = Cart;
@@ -34832,7 +34836,8 @@ function SpecificSongs() {
     style
   } = (0, _reactRouterDom.useParams)();
   const {
-    allSongs
+    allSongs,
+    showSongDetail
   } = (0, _react.useContext)(_Context.Context);
   console.log(style);
   const newSong = allSongs.filter(song => song.style === style);
@@ -34845,14 +34850,20 @@ function SpecificSongs() {
     alt: _headphone.default
   }), /*#__PURE__*/_react.default.createElement("p", {
     className: "style"
-  }, style)), newSong.map(song => /*#__PURE__*/_react.default.createElement("div", {
-    key: song.id,
-    className: "card--style"
+  }, style)), newSong.map(song => /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: `/songs/lyrics`,
+    key: song.id
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      cursor: "pointer"
+    },
+    className: "card--style",
+    onClick: () => showSongDetail(song)
   }, /*#__PURE__*/_react.default.createElement("p", {
     className: "title"
   }, song.title), /*#__PURE__*/_react.default.createElement("p", {
     className: "artist"
-  }, song.artist))));
+  }, song.artist)))));
 }
 
 var _default = SpecificSongs;
@@ -34875,10 +34886,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function AddForm() {
   const {
-    allSongs,
     setAllSongs
   } = (0, _react.useContext)(_Context.Context);
-  const [newSongs, setNewSong] = (0, _react.useState)({});
 
   function submitForm(e) {
     e.preventDefault();
@@ -34901,38 +34910,38 @@ function AddForm() {
       lyrics: lyrics.value,
       isAdded: false
     };
-    setNewSong(newSong);
     e.target.reset();
+    setAllSongs(prev => [...prev, newSong]);
   }
 
-  (0, _react.useEffect)(() => {
-    if (!newSongs.title) return null;
-    setAllSongs(prev => [...prev, newSongs]);
-    console.log(newSongs);
-  }, [newSongs]);
   return /*#__PURE__*/_react.default.createElement("form", {
     onSubmit: submitForm
   }, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     placeholder: "Title",
-    name: "title"
+    name: "title",
+    required: true
   }), /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     placeholder: "Artist",
-    name: "artist"
+    name: "artist",
+    required: true
   }), /*#__PURE__*/_react.default.createElement("input", {
     type: "number",
     placeholder: "Price",
-    name: "price"
+    name: "price",
+    required: true
   }), /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     placeholder: "Style",
-    name: "style"
+    name: "style",
+    required: true
   }), /*#__PURE__*/_react.default.createElement("textarea", {
     name: "lyrics",
     placeholder: "Lyrics",
     cols: "30",
-    rows: "10"
+    rows: "10",
+    required: true
   }), /*#__PURE__*/_react.default.createElement("button", {
     type: "submit"
   }, "Add"));
@@ -35034,7 +35043,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57994" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56281" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

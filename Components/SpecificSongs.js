@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {Context} from '../Context';
 import HeadphoneImg from '../images/headphone.png';
 
 function SpecificSongs() {
     const { style } = useParams()
-    const {allSongs} = useContext(Context);
+    const {allSongs,showSongDetail} = useContext(Context);
     console.log(style);
 
 
@@ -20,10 +20,12 @@ function SpecificSongs() {
         </div>
            {
                newSong.map(song => (
-                <div key={song.id} className="card--style">
-                    <p className="title">{song.title}</p>
-                    <p className="artist">{song.artist}</p>
-                </div>
+                <Link to={`/songs/lyrics`} key={song.id}>
+                  <div style={{cursor:"pointer"}} className="card--style" onClick={() => showSongDetail(song)}>
+                      <p className="title">{song.title}</p>
+                      <p className="artist">{song.artist}</p>
+                  </div>
+                </Link>
                ))
            }
     </div>
