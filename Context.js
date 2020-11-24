@@ -10,6 +10,7 @@ console.log(songs)
     const [cartSongs,setCartSongs] = useState([]);
     const [songWithDetail,setSongWithDetail] = useState({});
     const [showDetail,setShowDetail] = useState(false); 
+    const [styles,setStyles] = useState(['Pop', 'Rap', 'Reggae', 'RNB', 'Slow', 'Rap & Rock', 'Jazz', 'Pop & Rock'])
     
     function increaseLikes(id) {
         const increasedVotes = allSongs.map(item => {
@@ -88,6 +89,7 @@ useEffect(() => {
   return <Context.Provider value={
       {allSongs,
       setAllSongs,
+      styles,
       cartSongs,
       addToCart,
       removeSongs,

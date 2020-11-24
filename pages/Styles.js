@@ -1,36 +1,37 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import {Context} from '../Context';
-import HeadphoneImg from '../images/headphone.png';
+
+const StylesContainer = styled.div`
+	display: grid;
+	gap: 20px;
+	a {
+		text-decoration: none;
+		color: #272343;
+		font-size: 2rem;
+	}
+	a:hover {
+		color: #ffd803;
+	}
+`;
 
 function Styles() {
-    const {allSongs} = useContext(Context);
-    const songsStyles = allSongs.filter(song => song.style);
-    const allStyles = [...new Set(songsStyles)];
-    const styles = allStyles.map(song => (
-            <li key={song.id}>
-               <Link to={`/styles/${song.style}`}  >
-                <img className="img" src={HeadphoneImg} alt={HeadphoneImg}/>
-                <button className="style" value={song.style}>{song.style}</button>
-                </Link>
-            </li>
-    ))
+    const {styles} = useContext(Context);
+
   return (
-    <ul className="style-container">
-        {styles}
-    </ul>
+        <div>
+          <h1>Styles list</h1>
+          <StylesContainer>
+            {styles.map(style => (
+                  <Link to={`/styles/${style}`} key={style}>
+                    🎧 {style}
+                  </Link>
+                ))}
+          </StylesContainer>
+      </div>
   )
 }
-
-
-// Styles.propTypes ={
-//   songsStyles: PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//       title: PropTypes.string.isRequired,
-//       artist: PropTypes.string,
-//       lyric: PropTypes.string
-//   })
-// }
 
 export default Styles

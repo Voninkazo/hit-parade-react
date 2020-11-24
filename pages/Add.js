@@ -1,8 +1,32 @@
 import React, { useContext} from 'react';
+import styled from 'styled-components';
+
 import {Context} from '../Context';
 
+
+const FormStyles = styled.form`
+	display: grid;
+	grid-template-columns: 300px;
+	gap: 10px;
+	input,
+	select,
+	textarea {
+		height: 30px;
+		background: #bae8e8;
+		border: none;
+		padding: 0 1rem;
+		border-radius: 5px;
+	}
+	input::placeholder {
+		/* Chrome, Firefox, Opera, Safari 10.1+ */
+		color: #272343;
+		opacity: 1; /* Firefox */
+	}
+`;
+
+
 function AddForm() {
-    const {setAllSongs} = useContext(Context);
+    const {setAllSongs,styles} = useContext(Context);
 
     function submitForm(e) {
         e.preventDefault();
@@ -24,14 +48,52 @@ function AddForm() {
     }
 
   return (
-    <form onSubmit={submitForm}>
-        <input type="text" placeholder="Title" name="title" required/>
-        <input type="text" placeholder="Artist" name="artist" required/>
-        <input type="number" placeholder="Price" name="price" required/>
-        <input type="text" placeholder="Style" name="style" required/>
-        <textarea name="lyrics" placeholder="Lyrics" cols="30" rows="10" required></textarea>
+    <div>
+      <h1>🌚 Add a new song</h1>
+    <FormStyles onSubmit={submitForm}>
+        <input 
+          type="text" 
+          name="title"
+          placeholder="Title"  
+          required
+        />
+
+        <input 
+          type="text" 
+          name="artist" 
+          placeholder="Artist" 
+          required
+        />
+
+        <input 
+          type="number" 
+          name="price" 
+          placeholder="Price" 
+          required
+        />
+
+        <select 
+          name="style"
+          required 
+        >
+					{styles.map(style => (
+						<option key={style} value={style}>
+							{style}
+						</option>
+					))}
+				</select>
+
+        <textarea 
+          name="lyrics" 
+          placeholder="Lyrics" 
+          cols="30" rows="10" 
+          required
+        >
+        </textarea>
+
         <button type="submit">Add</button>
-    </form>
+    </FormStyles>
+    </div>
   )
 }
 
