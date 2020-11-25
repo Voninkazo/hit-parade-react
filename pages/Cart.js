@@ -1,7 +1,17 @@
 import React, { useContext, useState,useEffect } from 'react';
+import styled from 'styled-components';
 
 import {Context} from '../Context';
 import CartItem from '../Components/CartItem';
+
+const StyleConatiner = styled.div`
+text-align : center;
+padding-top: 50px;
+p{
+  font-size: 25px;
+  font-weight: bold;
+}
+`
 
 function Cart() {
     const {cartSongs,emptyCart} = useContext(Context);
@@ -21,7 +31,7 @@ function Cart() {
 
     function completeOrder() {
       // show the price somewhere (alert or console)
-      alert(`THANK YOU FOR YOUR ORDER. PLEASE PAY : ${total}`);
+      alert(`THANK YOU FOR YOUR ORDER. PLEASE PAY : ${total} Ar`);
       // empty the cart
       emptyCart();
     }
@@ -32,12 +42,14 @@ function Cart() {
         {cartSongs.length > 0 ? (
           <div className="buying-container">
              <p>You have chosen <b>{cartSongs.length}</b> songs</p>
-            <p className="amount">Total: <b>{total}Ar</b></p>
+            <p className="amount">Total: <b>{total} Ar</b></p>
             <button className="btn-to-buy" onClick={completeOrder}>Buy</button>
       </div>
      )
      :
-     <p>There is no chosen songs</p>
+     <StyleConatiner>
+       <p>This page is empty👌</p>
+     </StyleConatiner>
      }
     </div>
   )
