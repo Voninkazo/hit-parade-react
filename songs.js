@@ -4,7 +4,7 @@ const songs = [{
         title: "Tsy Hanampetra",
         isFavorite: true,
         style: "Rap & Pop",
-        price: 200,
+        price: 500,
         likes: 29,
         dislikes: 34,
         lyrics: `Aza mba manody hono ny fo tsy mahay mitia
@@ -64,7 +64,7 @@ const songs = [{
     },
     {
         id: 1605846901797,
-        artist: "Adelele",
+        artist: "Adele",
         title: "Don't you remember",
         isFavorite: true,
         likes: 54,
@@ -101,7 +101,7 @@ const songs = [{
         likes: 29,
         dislikes: 23,
         style: "Pop",
-        price: 200,
+        price: 500,
         lyrics: `Don't know much about your life
         Don't know much about your world but
         Don't wanna be alone tonight

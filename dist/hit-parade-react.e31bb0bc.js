@@ -33866,7 +33866,7 @@ const songs = [{
   title: "Tsy Hanampetra",
   isFavorite: true,
   style: "Rap & Pop",
-  price: 200,
+  price: 500,
   likes: 29,
   dislikes: 34,
   lyrics: `Aza mba manody hono ny fo tsy mahay mitia
@@ -33925,7 +33925,7 @@ const songs = [{
 `
 }, {
   id: 1605846901797,
-  artist: "Adelele",
+  artist: "Adele",
   title: "Don't you remember",
   isFavorite: true,
   likes: 54,
@@ -33961,7 +33961,7 @@ const songs = [{
   likes: 29,
   dislikes: 23,
   style: "Pop",
-  price: 200,
+  price: 500,
   lyrics: `Don't know much about your life
         Don't know much about your world but
         Don't wanna be alone tonight
@@ -34443,6 +34443,10 @@ function ContextProvider(props) {
     setAllSongs(newSongArray);
   }
 
+  function emptyCart() {
+    setCartSongs([]);
+  }
+
   (0, _react.useEffect)(() => {
     const lsSongs = JSON.parse(localStorage.getItem('allSongs'));
     lsSongs ? setAllSongs(lsSongs) : setAllSongs(_songs.default);
@@ -34468,7 +34472,8 @@ function ContextProvider(props) {
       showDetail,
       toggleFavorite,
       increaseDislikes,
-      increaseLikes
+      increaseLikes,
+      emptyCart
     }
   }, props.children);
 }
@@ -34686,24 +34691,37 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function Cart() {
   const {
-    cartSongs
+    cartSongs,
+    emptyCart
   } = (0, _react.useContext)(_Context.Context);
+  const [total, setTotal] = (0, _react.useState)(0);
+  (0, _react.useEffect)(() => {
+    const newTotal = cartSongs.reduce((total, song) => {
+      total += song.price;
+      return total;
+    }, 0);
+    setTotal(newTotal);
+  }, [cartSongs]);
   const cartSongElements = cartSongs.map(song => /*#__PURE__*/_react.default.createElement(_CartItem.default, {
     key: song.id,
     song: song
   }));
-  const totalAmount = Number(200 * cartSongs.length);
-  console.log(totalAmount);
-  return /*#__PURE__*/_react.default.createElement("div", null, cartSongElements, cartSongs.length > 0 && /*#__PURE__*/_react.default.createElement("div", {
+
+  function completeOrder() {
+    // show the price somewhere (alert or console)
+    alert(`THANK YOU FOR YOUR ORDER. PLEASE PAY : ${total}`); // empty the cart
+
+    emptyCart();
+  }
+
+  return /*#__PURE__*/_react.default.createElement("div", null, cartSongElements, cartSongs.length > 0 ? /*#__PURE__*/_react.default.createElement("div", {
     className: "buying-container"
   }, /*#__PURE__*/_react.default.createElement("p", null, "You have chosen ", /*#__PURE__*/_react.default.createElement("b", null, cartSongs.length), " songs"), /*#__PURE__*/_react.default.createElement("p", {
     className: "amount"
-  }, "Total: ", /*#__PURE__*/_react.default.createElement("b", null, totalAmount.toLocaleString("en-Us", {
-    style: "currency",
-    currency: "USD"
-  }))), /*#__PURE__*/_react.default.createElement("button", {
-    className: "btn-to-buy"
-  }, "Buy")));
+  }, "Total: ", /*#__PURE__*/_react.default.createElement("b", null, total, "Ar")), /*#__PURE__*/_react.default.createElement("button", {
+    className: "btn-to-buy",
+    onClick: completeOrder
+  }, "Buy")) : /*#__PURE__*/_react.default.createElement("p", null, "There is no chosen songs"));
 }
 
 var _default = Cart;
@@ -36961,7 +36979,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53970" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54125" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -69,6 +69,10 @@ console.log(songs)
     setAllSongs(newSongArray);
 }
 
+function emptyCart() {
+    setCartSongs([]);
+}
+
 useEffect(() => {
     const lsSongs = JSON.parse(localStorage.getItem('allSongs'));
     lsSongs ? setAllSongs(lsSongs) : setAllSongs(songs);
@@ -99,6 +103,7 @@ useEffect(() => {
       toggleFavorite,
       increaseDislikes,
       increaseLikes,
+      emptyCart,
 }
       }>
         {props.children}
