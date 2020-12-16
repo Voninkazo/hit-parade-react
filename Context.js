@@ -43,8 +43,8 @@ console.log(songs)
         setCartSongs(newCartSongs);
     }
 
-    function showSongDetail(song) {
-        setSongWithDetail(song);
+    function showSongDetail() {
+        // setSongWithDetail(song);
         setShowDetail(true);
     }
 
